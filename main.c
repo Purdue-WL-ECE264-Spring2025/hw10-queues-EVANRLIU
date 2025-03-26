@@ -2,8 +2,14 @@
 #include <stdint.h>
 #include <stdio.h>
 #include <stdlib.h>
-
-int main(int argc, char **argv) {
+int main(){
+  struct linked_list list;
+  // list.head = 10;
+  // list.head -> next = NULL;
+  insert_at_head(&list, 6);
+  dump_list(stdout, list);
+}
+int other(int argc, char **argv) {
   if (argc < 2) {
     fprintf(stderr, "Usage: %s [test file]\n", argv[0]);
     exit(1);
