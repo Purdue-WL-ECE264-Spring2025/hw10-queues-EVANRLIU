@@ -1,5 +1,5 @@
 #include "linked_list.h"
-
+#include <stdio.h>
 #include <stdlib.h>
 
 struct list_node *new_node(size_t value) {
@@ -17,35 +17,51 @@ void insert_at_head(struct linked_list *list, size_t value) {
 }
 
 void insert_at_tail(struct linked_list *list, size_t value) {
+  struct list_node *t = new_node(value);
   struct list_node *h = list -> head;
-  struct list_node *n = h -> next;
-  while(n != NULL){ //loop to the end
-    n = h -> next;
-    h = n;
+  if(h == NULL){ //check if list is empty
+    list -> head = t;
   }
-  n = new_node(value);
-  h -> next = n;
+  else{
+    struct list_node *n = h -> next;
+    while(n != NULL){ //loop to the end
+      h = n;
+      n = h -> next;
+    }
+    h -> next = t;
+  }
 }
 
 size_t remove_from_head(struct linked_list *list) { 
-  struct list_node *h = list -> head; //first value
-  struct list_node *n = h -> next; //second value
+  if(list -> head == NULL){
+    return 0;
+  }
+  struct list_node *n = list -> head -> next; //second value
 
-  //free first value and set h to 2nd value
-  free(h);
-  h = n;
+  //free first value and set head to 2nd value
+  free(list -> head);
+  list -> head = n;
   return 0; 
 }
 
 size_t remove_from_tail(struct linked_list *list) { 
   struct list_node *h = list -> head;
   struct list_node *n = h -> next;
-  while(n != NULL){ //loop to the end
-    n = h -> next;
-    h = n;
+  if(list -> head == NULL){ //check if list is empty
+    return 0;
   }
-  free(n);
-  h -> next = NULL;
+  else if(list -> head -> next == NULL){
+    free(list -> head);
+    list -> head = NULL;
+  }
+  else{ //if the list has 2 or more indexes
+    while(n -> next != NULL){ //loop to the value 1 before end
+      h = n;
+      n = h -> next;
+    }
+    free(n);
+    h -> next = NULL;
+  }
   return 0; 
 }
 

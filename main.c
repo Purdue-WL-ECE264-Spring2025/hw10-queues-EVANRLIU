@@ -4,10 +4,23 @@
 #include <stdlib.h>
 int main(){
   struct linked_list list;
+  list.head = NULL;
   // list.head = 10;
   // list.head -> next = NULL;
   insert_at_head(&list, 6);
   dump_list(stdout, list);
+  // insert_at_head(&list, 10);
+  // dump_list(stdout, list);
+  // insert_at_tail(&list, 11);
+  // dump_list(stdout, list);
+  // insert_at_tail(&list, 13);
+  // dump_list(stdout, list);
+  // insert_at_head(&list, 1);
+  // dump_list(stdout, list);
+
+  remove_from_tail(&list);
+  dump_list(stdout, list);
+  
 }
 int other(int argc, char **argv) {
   if (argc < 2) {
