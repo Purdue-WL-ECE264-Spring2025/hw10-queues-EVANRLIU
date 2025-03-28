@@ -68,6 +68,7 @@ int number_of_moves(struct game_state start){
         struct game_state cur_state = dequeue(&q); //access the current board and remove it from the queue
         printf("%d\n", cur_state.num_steps);
         if(check_sorted(cur_state)){
+            free_list(q.data);
             return cur_state.num_steps;
         }
         else{
