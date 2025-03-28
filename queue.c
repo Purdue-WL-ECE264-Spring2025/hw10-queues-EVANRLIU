@@ -3,8 +3,12 @@
 #include <stdio.h>
 
 void enqueue(struct queue *q, struct game_state state){
-    state.num_steps++;
     struct game_state new_state;
+    if(state.empty_col != 0){
+        new_state = state;
+        move_right(&new_state);
+        insert_at_tail(&(q -> data), serialize(new_state));
+    }
     if(state.empty_row != 3){
         new_state = state;
         move_up(&new_state);
@@ -18,11 +22,6 @@ void enqueue(struct queue *q, struct game_state state){
     if(state.empty_col != 3){
         new_state = state;
         move_left(&new_state);
-        insert_at_tail(&(q -> data), serialize(new_state));
-    }
-    if(state.empty_row != 0){
-        new_state = state;
-        move_right(&new_state);
         insert_at_tail(&(q -> data), serialize(new_state));
     }
 }
@@ -59,6 +58,15 @@ bool check_sorted(struct game_state state){
     return sorted;
 }
 
+void print_shit(struct game_state state){
+    for(int row = 0; row < 4; row++){
+        for(int col = 0; col < 4; col++){
+            printf("%d ", state.tiles[row][col]);
+        }
+    }
+    printf("\n");
+}
+
 int number_of_moves(struct game_state start){ 
     start.num_steps = 0;
     struct queue q = create_queue(); //create the queue
@@ -66,7 +74,8 @@ int number_of_moves(struct game_state start){
     bool sorted = check_sorted(start);
     while(q.data.head != NULL && !sorted){
         struct game_state cur_state = dequeue(&q); //access the current board and remove it from the queue
-        printf("%d\n", cur_state.num_steps);
+        // print_shit(cur_state);
+        // printf("%d hello\n", cur_state.num_steps);
         if(check_sorted(cur_state)){
             free_list(q.data);
             return cur_state.num_steps;
