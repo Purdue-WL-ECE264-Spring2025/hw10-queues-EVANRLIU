@@ -19,7 +19,6 @@ int main(){
   dump_list(stdout, list);
 
   free_list(list);
-  dump_list(stdout, list);
  
 }
 int other(int argc, char **argv) {
