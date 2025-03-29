@@ -1,28 +1,44 @@
 #include "queue.h"
 #include "tile_game.h"
 #include <stdio.h>
+void print_shit(struct game_state state){
+    for(int row = 0; row < 4; row++){
+        for(int col = 0; col < 4; col++){
+            printf("%d ", state.tiles[row][col]);
+        }
+    }
+    printf("\n");
+}
 
 void enqueue(struct queue *q, struct game_state state){
     struct game_state new_state;
-    if(state.empty_col != 0){
-        new_state = state;
-        move_right(&new_state);
-        insert_at_tail(&(q -> data), serialize(new_state));
-    }
     if(state.empty_row != 3){
+        printf("up ");
         new_state = state;
         move_up(&new_state);
         insert_at_tail(&(q -> data), serialize(new_state));
+        print_shit(new_state);
     }
     if(state.empty_row != 0){
+        printf("down ");
         new_state = state;
         move_down(&new_state);
         insert_at_tail(&(q -> data), serialize(new_state));
+        print_shit(new_state);
     }
     if(state.empty_col != 3){
+        printf("left ");
         new_state = state;
         move_left(&new_state);
         insert_at_tail(&(q -> data), serialize(new_state));
+        print_shit(new_state);
+    }
+    if(state.empty_col != 0){
+        printf("right ");
+        new_state = state;
+        move_right(&new_state);
+        insert_at_tail(&(q -> data), serialize(new_state));
+        print_shit(new_state);
     }
 }
 
@@ -45,7 +61,9 @@ bool check_sorted(struct game_state state){
     for(int row = 0; row < 4; row++){
         for(int col = 0; col < 4; col++){
             if(row == 3 && col == 3){
-                sorted = state.tiles[row][col] == 0;
+                if(state.tiles[row][col] != 0){
+                    sorted = false;
+                };
             }
             else if(state.tiles[row][col] == expectedNum){
                 expectedNum++;
@@ -58,15 +76,6 @@ bool check_sorted(struct game_state state){
     return sorted;
 }
 
-void print_shit(struct game_state state){
-    for(int row = 0; row < 4; row++){
-        for(int col = 0; col < 4; col++){
-            printf("%d ", state.tiles[row][col]);
-        }
-    }
-    printf("\n");
-}
-
 int number_of_moves(struct game_state start){ 
     start.num_steps = 0;
     struct queue q = create_queue(); //create the queue
@@ -74,8 +83,8 @@ int number_of_moves(struct game_state start){
     bool sorted = check_sorted(start);
     while(q.data.head != NULL && !sorted){
         struct game_state cur_state = dequeue(&q); //access the current board and remove it from the queue
-        // print_shit(cur_state);
-        // printf("%d hello\n", cur_state.num_steps);
+        printf("%d current ", cur_state.num_steps);
+        print_shit(cur_state);
         if(check_sorted(cur_state)){
             free_list(q.data);
             return cur_state.num_steps;
