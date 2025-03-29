@@ -10,6 +10,10 @@ void print_shit(struct game_state state){
     printf("\n");
 }
 
+// bool valid_board(struct game_state board){
+//     bool isValid;
+//     for(int row = 0; row < )
+// }
 void enqueue(struct queue *q, struct game_state state){
     struct game_state new_state;
     if(state.empty_row != 3){
@@ -81,7 +85,7 @@ int number_of_moves(struct game_state start){
     struct queue q = create_queue(); //create the queue
     insert_at_tail(&q.data, serialize(start)); //insert the starting board to the queue
     bool sorted = check_sorted(start);
-    while(q.data.head != NULL && !sorted){
+    while(q.data.head != NULL && !sorted && num_steps <= 10){
         struct game_state cur_state = dequeue(&q); //access the current board and remove it from the queue
         printf("%d current ", cur_state.num_steps);
         print_shit(cur_state);
