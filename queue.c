@@ -86,7 +86,7 @@ int number_of_moves(struct game_state start){
     insert_at_tail(&q.data, serialize(start)); //insert the starting board to the queue
     bool sorted = check_sorted(start);
     int num = 0;
-    while(q.data.head != NULL && !sorted && num <= 9){
+    while(q.data.head != NULL && !sorted && num <= 6){
         struct game_state cur_state = dequeue(&q); //access the current board and remove it from the queue
         printf("%d current ", cur_state.num_steps);
         num = cur_state.num_steps;
