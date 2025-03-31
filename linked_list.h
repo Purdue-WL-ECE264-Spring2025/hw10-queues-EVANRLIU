@@ -4,6 +4,10 @@
 #include <stdbool.h>
 #include <stdio.h>
 
+// struct queue {
+//   struct linked_list data;
+// };
+
 struct list_node {
   size_t value;
   struct list_node *next;

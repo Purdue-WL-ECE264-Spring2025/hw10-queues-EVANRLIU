@@ -2,9 +2,17 @@
 #include <stdint.h>
 #include <stdio.h>
 #include <stdlib.h>
+
 int main(){
+  // struct linked_list list;
+  // list.head = NULL;
+  // insert_at_head(&list, 6);
+  // insert_at_head(&list, 10);
+  // insert_at_tail(&list, 12);
+  // dump_list(stdout, list);
+  // free_list(list);
   struct game_state game;
-  game = (struct game_state){ .tiles = {{1,2,3,4},{5,6,6,8},{9,10,7,12}, {13,14,11,14}} };
+  game = (struct game_state){ .tiles = {{1,3,6,4},{5,2,11,7},{9,10,15,8}, {13,14,0,12}} };
   int num_moves = number_of_moves(game);
   printf("%d\n", num_moves);
 }

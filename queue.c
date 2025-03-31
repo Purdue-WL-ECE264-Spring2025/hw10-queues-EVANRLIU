@@ -10,12 +10,23 @@ void print_shit(struct game_state state){
     printf("\n");
 }
 
-// bool valid_board(struct game_state board){
-//     bool isValid;
-//     for(int row = 0; row < )
-// }
+bool check_dup(struct linked_list data, uint64_t new_state){
+    struct list_node *h = data.head;
+    if(h == NULL){return true;}
+    struct list_node *n = h -> next;
+    while(n != NULL){
+        if(h -> value == new_state){
+            return false;
+        }
+        h = n;
+        n = h -> next;
+    }
+    return true;
+}
+
 void enqueue(struct queue *q, struct game_state state){
     struct game_state new_state;
+    if(check_dup(q -> data, serialize(state)))
     if(state.empty_row != 3){
         printf("up ");
         new_state = state;
