@@ -1,6 +1,14 @@
 #include "queue.h"
 #include "tile_game.h"
 #include <stdio.h>
+void print_shit(struct game_state state){
+    for(int row = 0; row < 4; row++){
+        for(int col = 0; col < 4; col++){
+            printf("%d ", state.tiles[row][col]);
+        }
+    }
+    printf("\n");
+}
 
 bool check_dup(struct linked_list data, uint64_t new_state){
     struct list_node *h = data.head;
