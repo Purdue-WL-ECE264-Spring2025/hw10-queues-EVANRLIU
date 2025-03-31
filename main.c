@@ -12,8 +12,7 @@ int main(){
   // dump_list(stdout, list);
   // free_list(list);
   struct game_state game;
-  game = (struct game_state){ .tiles = {{1,3,6,4},{5,2,11,7},{9,10,15,8}, {13,14,0,12}} };
-  int num_moves = number_of_moves(game);
+  game = (struct game_state){ .tiles = {{3,1,6,4},{5,2,11,7},{9,10,15,8}, {13,14,0,12}} };  int num_moves = number_of_moves(game);
   printf("%d\n", num_moves);
 }
 int other(int argc, char **argv) {
