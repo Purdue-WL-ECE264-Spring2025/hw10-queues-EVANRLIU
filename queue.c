@@ -1,14 +1,6 @@
 #include "queue.h"
 #include "tile_game.h"
 #include <stdio.h>
-void print_shit(struct game_state state){
-    for(int row = 0; row < 4; row++){
-        for(int col = 0; col < 4; col++){
-            printf("%d ", state.tiles[row][col]);
-        }
-    }
-    printf("\n");
-}
 
 bool check_dup(struct linked_list data, uint64_t new_state){
     struct list_node *h = data.head;
@@ -96,12 +88,8 @@ int number_of_moves(struct game_state start){
     struct queue q = create_queue(); //create the queue
     insert_at_tail(&q.data, serialize(start)); //insert the starting board to the queue
     bool sorted = check_sorted(start);
-    int num = 0;
     while(q.data.head != NULL && !sorted){
         struct game_state cur_state = dequeue(&q); //access the current board and remove it from the queue
-        printf("%d current ", cur_state.num_steps);
-        num = cur_state.num_steps;
-        print_shit(cur_state);
         if(check_sorted(cur_state)){
             free_list(q.data);
             return cur_state.num_steps;
